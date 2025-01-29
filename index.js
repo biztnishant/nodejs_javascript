@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 // const dotenv = require('dotenv');
 // const mongoose=require('mongoose');
 // const multer=require('multer');
- import productRoutes from './routes/productRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 // const productRoutes=require('./routes/productRoutes.js');
 import categoryRoutes from './routes/categoryRoutes.js';
 // const categoryRoutes=require("../Server/routes/categoryRoutes.js");

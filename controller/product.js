@@ -1,12 +1,14 @@
 import ProductModel from "../models/product.js";
 import { AppError } from "../errorhandler.js";
+import { successHandler } from "../middleware/successHanlder.js";
 
-export const CreateProduct=async(req,res,next)=>{
+export const CreateProduct = async (req,res,next)=>{
     try{
-      console.log(req.body);
-      const{name,description,price,isActive,quantity,category,manufacturingAddress}=req.body;
-      // const image=req.file?.buffer;
+      
+      const {name,description,price,isActive,quantity,category,manufacturingAddress}=req.body;
+      const image=req.file?.buffer;
       console.log(req.file);
+      console.log(req.body);
       const productData=await ProductModel.create({
         name,
         description,
@@ -15,9 +17,10 @@ export const CreateProduct=async(req,res,next)=>{
         quantity,
         category,
         manufacturingAddress,
-        // image,
+        image,
       });
-      res.status(200).json({message:"Product created successfully",data:productData});
+      //  res.status(200).json({message:"Product created successfully",data:productData});
+      successHandler(res,"successfully created",productData,201);
     }catch(error){
        next(error);
     }
@@ -28,7 +31,8 @@ export const getAllProducts = async (req, res,next) => {
       if(!products.length){
         throw new AppError("product not found",404)
       }
-      res.status(200).json({ message: "Products fetched successfully", data: products });
+      // res.status(200).json({ message: "Products fetched successfully", data: products });
+      successHandler(res,"successfully fetched",products);
     } catch (error) {
       next(error);
     }
@@ -43,7 +47,8 @@ export const getAllProducts = async (req, res,next) => {
         if(!updateProduct){
            throw new AppError("Product not found",404);
         }
-        res.status(200).json({message:"Update data successfully",data:updateProduct});
+        // res.status(200).json({message:"Update data successfully",data:updateProduct});
+        successHandler(res,"updated successfully",updateProduct);
     }catch(error){
        next(error);
     }
@@ -55,7 +60,8 @@ export const getAllProducts = async (req, res,next) => {
         if(!deleteProduct){
             throw new AppError("product not found ",404);
         }
-        res.status(200).json({message:"Successfully deleted data",data:deleteProduct});
+        // res.status(200).json({message:"Successfully deleted data",data:deleteProduct});
+        successHandler(res,"Deleted successfully",deleteProduct);
     }catch(error){
        next(error);
     }
@@ -85,10 +91,11 @@ export const processProductAddresses = async (req, res,next) => {
       };
     });
 
-    res.status(200).json({
-      message: "Processed products fetched successfully",
-      data: processedProducts,
-    });
+    // res.status(200).json({
+    //   message: "Processed products fetched successfully",
+    //   data: processedProducts,
+    // });
+    successHandler(res, "Processed products fetched successfully",processedProducts);
   } catch (error) {
    next(error);
   }
@@ -103,7 +110,8 @@ export const getProductById=async(req,res,next)=>{
   if(!getProduct){
    throw new AppError("Product not found",404);
   }
-  res.status(200).json({message:"Product found",data:getProduct});
+  // res.status(200).json({message:"Product found",data:getProduct});
+  successHandler(res,"Successfully fetech product with productId",getProduct);
    }catch(error){
     next(error);
    }

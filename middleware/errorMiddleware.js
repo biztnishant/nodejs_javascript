@@ -8,7 +8,7 @@ export const errorMiddleware = (
 ) => {
   if (error instanceof AppError) {
     // Handle custom AppError
-    res.status(err.statusCode).json({
+    res.status(error.statusCode).json({
       status: "error",
       statusCode: error.statusCode,
       message: error.message,
