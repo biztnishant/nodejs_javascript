@@ -2,29 +2,40 @@ import ProductModel from "../models/product.js";
 import { AppError } from "../errorhandler.js";
 import { successHandler } from "../middleware/successHanlder.js";
 
-export const CreateProduct = async (req,res,next)=>{
-    try{
-      
-      const {name,description,price,isActive,quantity,category,manufacturingAddress}=req.body;
-      const image=req.file?.buffer;
-      console.log(req.file);
-      console.log(req.body);
-      const productData=await ProductModel.create({
-        name,
-        description,
-        price,
-        isActive,
-        quantity,
-        category,
-        manufacturingAddress,
-        image,
-      });
-      //  res.status(200).json({message:"Product created successfully",data:productData});
-      successHandler(res,"successfully created",productData,201);
-    }catch(error){
-       next(error);
-    }
+export const CreateProduct = async (req, res, next) => {
+  try {
+    // console.log(" Incoming Request:", req.body);
+    console.log("File Info:", req.file);
+    // const {
+    //   name,
+    //   description,
+    //   price,
+    //   isActive,
+    //   quantity,
+    //   category,
+    //   manufacturingAddress,
+    // } = req.body;
+    const image = req.file?.buffer; // Ensure file is uploaded correctly
+    
+    console.log("Creating Product...");
+    const productData = await ProductModel.create({
+      // name,
+      // description,
+      // price,
+      // isActive,
+      // quantity,
+      // category,
+      // manufacturingAddress,
+      ...req.body,
+      image,
+    });
+    console.log("Product Created:", productData);
+    successHandler(res, "Successfully created", productData, 201);
+  } catch (error) {
+    next(error);
+  }
 };
+
 export const getAllProducts = async (req, res,next) => {
     try {
       const products = await ProductModel.find();

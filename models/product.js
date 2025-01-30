@@ -4,31 +4,28 @@ const ProductSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: false,
     },
     description: {
       type: String,
-      required: true,
+      required: false,
     },
     price: {
       type: mongoose.Schema.Types.Decimal128,
-      required: true,
+      required: false,
     },
     isActive: {
       type: Boolean,
-      required: true,
+      required: false,
     },
     quantity: {
       type: Number,
-      required: true,
+      required: false,
     },
     category: {
-      type: Map,
-      of:{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Category'
-      }
-    },
+      },
     // specifications: {
     //   type: Map,
     //   of: mongoose.Schema.Types.Mixed, // Allows any data type for the values
@@ -41,10 +38,10 @@ const ProductSchema = new mongoose.Schema(
     //In this field i am using nested schema
     manufacturingAddress: [
       {
-        street: { type: String, required: true },
-        city: { type: String, required: true },
-        state: { type: String, required: true },
-        pinCode: { type: String, required: true },
+        street: { type: String, required: false },
+        city: { type: String, required: false },
+        state: { type: String, required: false },
+        pinCode: { type: String, required: false },
       },
     ],
   },

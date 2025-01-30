@@ -13,12 +13,16 @@ import categoryRoutes from './routes/categoryRoutes.js';
 // const categoryRoutes=require("../Server/routes/categoryRoutes.js");
 import { errorMiddleware } from './middleware/errorMiddleware.js';
 // const { errorMiddleware } = require('./middleware/errorMiddleware.js');
+import multer from 'multer';
 
 
 dotenv.config();
 const app = express();
+
 //middleware
 app.use(express.json());
+
+// app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/api',productRoutes);
 app.use('/api', categoryRoutes);

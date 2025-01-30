@@ -16,7 +16,7 @@ import {CreateProduct,
   getProductById,} from "../controller/product.js";
 import {uploadToMemory} from "../middleware/upload.js";
 const router=express.Router();
-router.post("/createProduct", CreateProduct,uploadToMemory.single('image'));
+router.post("/createProduct", uploadToMemory.single("image"), CreateProduct);
 router.get("/getAllProducts",getAllProducts);
 router.put("/updateProduct/:id",updateProduct);
 router.delete("/deleteProduct/:id",deleteProduct);
